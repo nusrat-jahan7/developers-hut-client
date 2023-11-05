@@ -1,13 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./routes/Route";
-import { Toaster } from "react-hot-toast";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import { ThemeProvider } from '@material-tailwind/react'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes/Route.jsx'
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Toaster position="top-center" reverseOrder={false} />
+    <ThemeProvider>
     <RouterProvider router={router} />
-  </React.StrictMode>
-);
+    </ThemeProvider>
+  </React.StrictMode>,
+)
