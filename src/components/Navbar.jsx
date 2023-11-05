@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import logo from "../../public/images/logo.png"
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
@@ -25,12 +26,12 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           Home
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -38,12 +39,12 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/all-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           All jobs
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -51,12 +52,12 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/applied-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           Applied jobs
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -64,12 +65,12 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/add-job"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           Add a job
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -77,12 +78,12 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/my-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           My jobs
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -90,12 +91,12 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/blogs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           Blogs
-        </a>
+        </Link>
       </Typography>
     </ul>
   );
@@ -108,9 +109,9 @@ export default function NavBar() {
         <div className="hidden lg:block">
           {userLogin ? (
             <Menu placement="bottom-end">
-              <MenuHandler>
+              <Menu>
                 <Avatar src="/user.png" alt="avatar" variant="rounded" />
-              </MenuHandler>
+              </Menu>
               <MenuList>
                 <MenuItem>Menu Item 1</MenuItem>
                 <MenuItem>Menu Item 2</MenuItem>
@@ -118,24 +119,14 @@ export default function NavBar() {
               </MenuList>
             </Menu>
           ) : (
-            <div className="flex items-center gap-x-1">
-              <Button
-                variant="outlined"
-                color="teal"
-                size="md"
-                className="hidden lg:inline-block"
-              >
-                <span>Log In</span>
-              </Button>
               <Button
                 variant="filled"
                 color="teal"
                 size="md"
                 className="hidden lg:inline-block"
               >
-                <span>Sign in</span>
+                <Link to="/login">Sign in</Link>
               </Button>
-            </div>
           )}
         </div>
 
@@ -144,7 +135,7 @@ export default function NavBar() {
             userLogin && <Menu placement="bottom-end">
             <MenuHandler>
               <Avatar
-                src="/user.png"
+                src="uer.png"
                 alt="avatar"
                 variant="rounded"
                 size="sm"
@@ -203,16 +194,6 @@ export default function NavBar() {
           {navList}
 
           {!userLogin && (
-            <div className="flex items-center gap-x-1">
-              <Button
-                fullWidth
-                color="teal"
-                variant="outlined"
-                size="sm"
-                className=""
-              >
-                <span>Log In</span>
-              </Button>
               <Button
                 fullWidth
                 color="teal"
@@ -222,7 +203,6 @@ export default function NavBar() {
               >
                 <span>Sign in</span>
               </Button>
-            </div>
           )}
         </div>
       </MobileNav>

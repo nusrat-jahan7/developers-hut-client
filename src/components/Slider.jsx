@@ -6,13 +6,13 @@ import banner3 from "../../public/images/banner-3.jpg"
 const Slider = () => {
   return (
     <Carousel >
-      <div className="relative h-96 w-full">
+      <div className="relative lg:h-[550px] h-96 w-full">
         <img
           src={banner1}
           alt="image 1"
-          className="h-96 w-full object-cover"
+          className="lg:h-[550px] h-96 w-full object-cover"
         />
-        <div className="absolute inset-0 grid h-96 w-full place-items-center bg-black/75">
+        <div className="absolute inset-0 grid lg:h-[550px] h-96 w-full place-items-center bg-blue-gray-900/70">
           <div className="w-3/4 text-center md:w-2/4">
             <Typography
               variant="h1"
@@ -37,13 +37,13 @@ const Slider = () => {
           </div>
         </div>
       </div>
-      <div className="relative h-96 w-full">
+      <div className="relative lg:h-[550px] h-96 w-full">
         <img
           src={banner2}
           alt="image 2"
-          className="h-96 w-full object-cover"
+          className="lg:h-[550px] h-96 w-full object-cover"
         />
-        <div className="absolute inset-0 grid h-96 w-full place-items-center bg-black/75">
+        <div className="absolute inset-0 grid lg:h-[550px] h-96 w-full place-items-center bg-blue-gray-900/70">
           <div className="w-3/4 text-center md:w-2/4">
             <Typography
               variant="h1"
@@ -68,13 +68,13 @@ const Slider = () => {
           </div>
         </div>
       </div>
-      <div className="relative h-96 w-full">
+      <div className="relative lg:h-[550px] h-96 w-full">
         <img
           src={banner3}
           alt="image 3"
-          className="h-96 w-full object-cover"
+          className="lg:h-[550px] h-96 w-full object-cover"
         />
-        <div className="absolute inset-0 grid h-96 w-full place-items-center bg-black/75">
+        <div className="absolute inset-0 grid lg:h-[550px] h-96 w-full place-items-center bg-blue-gray-900/70">
           <div className="w-3/4 text-center md:w-2/4">
             <Typography
               variant="h1"
