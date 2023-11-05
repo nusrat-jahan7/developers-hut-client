@@ -1,14 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import { ThemeProvider } from '@material-tailwind/react'
-import { RouterProvider } from 'react-router-dom'
-import { router } from './routes/Route.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { ThemeProvider } from "@material-tailwind/react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/Route.jsx";
+import { Toaster } from "react-hot-toast";
+import AuthProvider from "./context/AuthProvider.jsx";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <AuthProvider>
     <ThemeProvider>
-    <RouterProvider router={router} />
+      <Toaster position="top-center" reverseOrder={false} />
+      <RouterProvider router={router} />
     </ThemeProvider>
-  </React.StrictMode>,
-)
+    </AuthProvider>
+  </React.StrictMode>
+);
