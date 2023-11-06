@@ -9,6 +9,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import client from "../api";
 import { formatDateFromTimestamp } from "../utils";
+import { Link } from "react-router-dom";
 
 // const TABS = [
 //   {
@@ -126,7 +127,7 @@ const AllJobs = () => {
 
             <tbody>
               {data?.map(
-                ({ createdAt, applicants, created_by, deadline, max_salary, min_salary, title, type }, index) => {
+                ({ createdAt, applicants, created_by, deadline, max_salary, min_salary, title, type, _id }, index) => {
                   const isLast = index === data?.length - 1;
                   const classes = isLast
                     ? "p-4"
@@ -196,7 +197,7 @@ const AllJobs = () => {
                         <Typography>$ {min_salary} - {max_salary}</Typography>
                       </td>
                       <td className={classes}>
-                        <Button color="teal">Details</Button>
+                        <Link to={`/all-jobs/${_id}`} className="bg-teal-700 text-white py-2 px-3 rounded-lg">Details</Link>
                       </td>
                     </tr>
                   );

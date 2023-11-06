@@ -4,14 +4,14 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
 } from "@material-tailwind/react";
 import { FiEdit2, FiUser } from "react-icons/fi";
 import { formatDateFromTimestamp } from "../utils";
+import { Link } from "react-router-dom";
 
 const JobsCart = ({ job }) => {
   // console.log(job);
-  const { createdAt, applicants, created_by, deadline, max_salary, min_salary, title } =
+  const { createdAt, applicants, created_by, deadline, max_salary, min_salary, title, _id } =
     job;
   return (
     <Card className="my-6 shadow-xl">
@@ -51,7 +51,7 @@ const JobsCart = ({ job }) => {
       </CardBody>
       <CardFooter className="pt-0">
         <a href="#" className="inline-block">
-          <Button size="sm" color="teal" className="flex items-center gap-2">
+          <Link to={`/all-jobs/${_id}`} size="sm" className="flex items-center gap-2 bg-teal-700 text-white py-2 px-3 rounded-lg">
             View Details
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ const JobsCart = ({ job }) => {
                 d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
               />
             </svg>
-          </Button>
+          </Link>
         </a>
       </CardFooter>
     </Card>
