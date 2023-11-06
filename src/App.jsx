@@ -1,15 +1,18 @@
-import NavBar from './components/Navbar'
-import './index.css'
-import { Outlet } from 'react-router-dom'
+import Footer from "./components/Footer";
+import NavBar from "./components/Navbar";
+import "./index.css";
+import { Outlet } from "react-router-dom";
 
 function App() {
-
   return (
     <>
-            <NavBar/>
-            <Outlet/> 
+      <NavBar />
+      <div className="max-w-7xl mx-auto px-5">
+        <Outlet />
+      </div>
+      <Footer/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

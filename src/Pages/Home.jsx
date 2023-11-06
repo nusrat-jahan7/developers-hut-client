@@ -7,26 +7,23 @@ import JobsCategory from "./JobsCategory";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-  const [filteredString, setFilteredString] = useState("");
+  const [filteredString, setFilteredString] = useState("alljob");
 
   const fetch = () =>
-    filteredString.length
-      ? client.get(`/job?type=${filteredString}`).then(({ data }) => data.result)
-      : client.get("/job").then(({ data }) => data.result);
+    filteredString === "alljob"
+    ? client.get("/job").then(({ data }) => data.result)
+      : client.get(`/job?type=${filteredString}`).then(({ data }) => data.result);
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["job"],
+    queryKey: [`job/${filteredString}`],
     queryFn: () => fetch(),
   });
 
-  useEffect(() => {
-    refetch();
-  }, [filteredString]);
 
   return (
     <div>
       <Slider />
-      <JobsCategory setFilteredString={setFilteredString} data={data} />
+      <JobsCategory setFilteredString={setFilteredString} data={data} isLoading={isLoading} />
     </div>
   );
 };

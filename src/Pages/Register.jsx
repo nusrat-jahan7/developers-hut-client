@@ -73,9 +73,9 @@ const Register = () => {
         toast.success("Account created successfully!");
 
         // Navigate to a different page after successful registration
-        // navigate(from, { replace: true });
+        navigate(from, { replace: true });
 
-        // window.location.reload();
+        window.location.reload();
 
         // Reset the form and password errors
         setFormData({

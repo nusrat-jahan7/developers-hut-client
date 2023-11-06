@@ -4,21 +4,19 @@ import {
   Typography,
   Button,
   IconButton,
-  Avatar,
   Menu,
-  MenuHandler,
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
 import { useContext, useState } from "react";
-import logo from "../../public/images/logo.png"
+import logo from "../../public/images/logo.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
   // const userLogin = false;
-  const {user} = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   console.log(user);
 
   const navList = (
@@ -110,48 +108,51 @@ export default function NavBar() {
         <img src={logo} className="w-48" alt="" />
         <div className="hidden lg:block">{navList}</div>
         <div className="hidden lg:block">
-          {user ? (
-            <Menu placement="bottom-end">
+          {user?.email ? (
+            <div className="flex items-center gap-2">
               <Menu>
-                <Avatar src="/user.png" alt="avatar" variant="rounded" />
+                <div className="w-10 rounded-full">
+                  <img
+                    className="rounded-full object-cover w-10 h-10"
+                    src={user?.photoURL ?? "https://i.ibb.co/t4NG2L4/user.png"}
+                  />
+                </div>
               </Menu>
-              <MenuList>
-                <MenuItem>Menu Item 1</MenuItem>
-                <MenuItem>Menu Item 2</MenuItem>
-                <MenuItem>Menu Item 3</MenuItem>
-              </MenuList>
-            </Menu>
-          ) : (
-              <Button
-                variant="filled"
-                color="teal"
-                size="md"
-                className="hidden lg:inline-block"
-              >
-                <Link to="/login">Sign in</Link>
+              <Button color="teal" onClick={() => logOut()}>
+                Log Out
               </Button>
+            </div>
+          ) : (
+            <Button
+              variant="filled"
+              color="teal"
+              size="md"
+              className="hidden lg:inline-block"
+            >
+              <Link to="/login">Sign in</Link>
+            </Button>
           )}
         </div>
 
         <div className="lg:hidden">
-          {
-            user && <Menu placement="bottom-end">
-            <MenuHandler>
-              <Avatar
-                src="uer.png"
-                alt="avatar"
-                variant="rounded"
-                size="sm"
-              />
-            </MenuHandler>
-            <MenuList>
-              <MenuItem>Menu Item 1</MenuItem>
-              <MenuItem>Menu Item 2</MenuItem>
-              <MenuItem>Menu Item 3</MenuItem>
-            </MenuList>
-          </Menu>
-          }
-          
+          {user?.email && (
+            <Menu placement="bottom-end">
+              <div className="w-10 rounded-full">
+                <img
+                  className="rounded-full object-cover w-10 h-10"
+                  src={user?.photoURL ?? "https://i.ibb.co/t4NG2L4/user.png"}
+                />
+              </div>
+              <MenuList>
+                <MenuItem>Profile</MenuItem>
+                <MenuItem>Menu</MenuItem>
+                <Button color="teal" onClick={() => logOut()}>
+                  Log Out
+                </Button>
+              </MenuList>
+            </Menu>
+          )}
+
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -196,16 +197,16 @@ export default function NavBar() {
         <div className="container mx-auto">
           {navList}
 
-          {!user && (
-              <Button
-                fullWidth
-                color="teal"
-                variant="filled"
-                size="sm"
-                className=""
-              >
-                <span>Sign in</span>
-              </Button>
+          {!user?.email && (
+            <Button
+              fullWidth
+              color="teal"
+              variant="filled"
+              size="sm"
+              className=""
+            >
+              <span>Sign in</span>
+            </Button>
           )}
         </div>
       </MobileNav>
