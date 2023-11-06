@@ -10,13 +10,16 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import logo from "../../public/images/logo.png"
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
-  const userLogin = false;
+  // const userLogin = false;
+  const {user} = useContext(AuthContext);
+  console.log(user);
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -107,7 +110,7 @@ export default function NavBar() {
         <img src={logo} className="w-48" alt="" />
         <div className="hidden lg:block">{navList}</div>
         <div className="hidden lg:block">
-          {userLogin ? (
+          {user ? (
             <Menu placement="bottom-end">
               <Menu>
                 <Avatar src="/user.png" alt="avatar" variant="rounded" />
@@ -132,7 +135,7 @@ export default function NavBar() {
 
         <div className="lg:hidden">
           {
-            userLogin && <Menu placement="bottom-end">
+            user && <Menu placement="bottom-end">
             <MenuHandler>
               <Avatar
                 src="uer.png"
@@ -193,7 +196,7 @@ export default function NavBar() {
         <div className="container mx-auto">
           {navList}
 
-          {!userLogin && (
+          {!user && (
               <Button
                 fullWidth
                 color="teal"
