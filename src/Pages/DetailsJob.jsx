@@ -10,8 +10,22 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { formatDateFromTimestamp } from "../utils";
 
 const DetailsJob = () => {
+  const job = useLoaderData();
+  const {
+    deadline,
+    applicants,
+    company,
+    max_salary,
+    min_salary,
+    title,
+    description,
+    banner
+  } = job.result;
+
   const [size, setSize] = useState(null);
 
   const handleOpen = (value) => setSize(value);
@@ -27,7 +41,7 @@ const DetailsJob = () => {
   return (
     <div>
       <div className="relative">
-        <img src={bannerDetail} alt="" className="w-full h-auto" />
+        <img src={banner || bannerDetail} alt="" className="w-full h-auto" />
         <div className="absolute inset-0 grid items-end ">
           <div className="bg-teal-700 bg-opacity-50 p-6 hidden lg:block">
             <Typography
@@ -43,48 +57,39 @@ const DetailsJob = () => {
           </Typography>
         </div>
       </div>
-      <div className="lg:flex flex-col justify-center items-center">
-        <div className="flex flex-col gap-5">
-          <img src={companyLogo} className="w-2/6 h-2/6 mx-auto mt-6" alt="" />
+      <div className="lg:flex justify-center mt-6">
+        <div className="gap-5">
+          <img src={company.logo || companyLogo} className="w-2/6 h-2/6 mx-auto mt-6" alt="" />
           <Typography className="lg:text-3xl text-center text-xl fonst-semibold">
-            Replique Limited
+            {company.name}
+          </Typography>
+          <Typography variant="h2" className="mt-6 text-gray-600 text-center">
+            {title}
           </Typography>
         </div>
-        <div className="w-6/12 mx-auto">
-          <Typography variant="h2" className="mt-6 text-gray-600 text-center">
-            Senior UI/UX Designer
-          </Typography>
+        <div className="lg:w-6/12 mx-auto">
           <Typography className="mt-6 mb-3" variant="h5">
             <li>Job Description: </li>
           </Typography>
           <Typography>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-            molestias, quasi officiis quae quos quibusdam voluptate eum quaerat.
-            Molestiae hic ea porro mollitia vel eveniet eius. Sequi ipsa non
-            unde? Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Expedita sed vero magni debitis facilis ad numquam totam eius labore
-            nostrum. Consequatur deserunt inventore doloribus vitae veniam eum
-            molestias qui earum?Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Debitis ad ex enim numquam, consectetur,
-            accusantium soluta quam vitae sed eligendi eum accusamus facilis
-            deleniti et corrupti officia. Tempore, ea blanditiis!
+            {description}
           </Typography>
           <Typography className="mt-6 mb-3" variant="h5">
             <li>Salary Range: </li>
           </Typography>
           <Typography className="mt-3 lg:text-xl font-semibold text-gray-600">
-            min salary : $ 15000
+            min salary : $ {min_salary}
           </Typography>
           <Typography className="lg:text-xl font-semibold text-gray-600">
-            max salary : $ 20000
+            max salary : $ {max_salary}
           </Typography>
-          <div className="flex justify-between">
-          <Typography className="mt-6 mb-3 text-gray-600" variant="h6">
-            <li>No. of Applicants: 0 peaople </li>
-          </Typography>
-          <Typography className="mt-6 mb-3 text-gray-600" variant="h6">
-            <li>Deadline: 11 November, 2023 </li>
-          </Typography>
+          <div className="lg:flex justify-between">
+            <Typography className="mt-6 mb-3 text-gray-600" variant="h6">
+              <li>No. of Applicants: {applicants} </li>
+            </Typography>
+            <Typography className="mt-6 mb-3 text-gray-600" variant="h6">
+              <li>Deadline: {formatDateFromTimestamp(deadline)} </li>
+            </Typography>
           </div>
 
           <Button

@@ -51,7 +51,7 @@ const JobsCart = ({ job }) => {
       </CardBody>
       <CardFooter className="pt-0">
         <a href="#" className="inline-block">
-          <Link to={`/all-jobs/${_id}`} size="sm" className="flex items-center gap-2 bg-teal-700 text-white py-2 px-3 rounded-lg">
+          <Link to={`/job/${_id}`} size="sm" className="flex items-center gap-2 bg-teal-700 text-white py-2 px-3 rounded-lg">
             View Details
             <svg
               xmlns="http://www.w3.org/2000/svg"

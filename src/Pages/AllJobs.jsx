@@ -197,7 +197,7 @@ const AllJobs = () => {
                         <Typography>$ {min_salary} - {max_salary}</Typography>
                       </td>
                       <td className={classes}>
-                        <Link to={`/all-jobs/${_id}`} className="bg-teal-700 text-white py-2 px-3 rounded-lg">Details</Link>
+                        <Link to={`/job/${_id}`} className="bg-teal-700 text-white py-2 px-3 rounded-lg">Details</Link>
                       </td>
                     </tr>
                   );
