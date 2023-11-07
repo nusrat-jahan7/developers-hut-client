@@ -9,6 +9,7 @@ import Blogs from "../pages/Blogs";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import DetailsJob from "../pages/DetailsJob";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ export const router = createBrowserRouter([
         },
         {
             path: "/add-job",
-            element: <AddJobs/>
+            element: <PrivateRoute><AddJobs/></PrivateRoute> 
         },
         {
             path: "/my-jobs",
