@@ -30,14 +30,7 @@ const DetailsJob = () => {
 
   const handleOpen = (value) => setSize(value);
 
-  // const { data } = useQuery({
-  //     queryKey: ["job", id],
-  //     queryFn: () => client.get(`/job/${id}`).then(({ data }) => data?.result),
-  //   });
-
-  //   console.log(data);
-
-  //   data?.map((job) => console.log(job));
+ 
   return (
     <div>
       <div className="relative">

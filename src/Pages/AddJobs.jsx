@@ -1,46 +1,70 @@
-import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Option,
+  Select,
+  Textarea,
+  Typography,
+} from "@material-tailwind/react";
 import client from "../api";
-// import { useState } from "react";
-// import DatePicker from "react-datepicker";
+import { useContext, useState } from "react";
+import DatePicker from "react-datepicker";
+import toast from "react-hot-toast";
+
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import { AuthContext } from "../context/AuthProvider";
 
 const AddJobs = () => {
-  // const [startDate, setStartDate] = useState(new Date());
+  const [deadline, setDeadline] = useState("");
+  const [jobType, setJobType] = useState("");
+  const { user } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
 
-    const name = form.name.value;
-    const image = form.image.value;
-    const title = form.title.value;
-    const category = form.category.value;
-    const min_salary = form.min_salary.value;
-    const max_salary = form.max_salary.value;
-    const date = form.date.value;
-    const deadline = form.deadline.value;
-    const company_name = form.company_name.value;
-    const logo = form.logo.value;
-    const description = form.description.value;
-    // console.log(name, image, title, category, min_salary, max_salary, date, deadline,company_name, logo, description);
-
     const payload = {
-      name,
-      image,
-      title,
-      category,
-      min_salary,
-      max_salary,
-      date,
-      deadline,
-      company_name,
-      logo,
-      description,
+      title: form.title.value,
+      type: jobType,
+      deadline: deadline,
+      min_salary: form.min_salary.value,
+      max_salary: form.max_salary.value,
+      banner: form.banner.value,
+      description: form.description.value,
+      company: {
+        name: form.company_name.value,
+        logo: form.company_logo.value,
+      },
+      created_by: {
+        name: user.displayName,
+        email: user.email,
+      },
     };
 
-    client.post('/job', payload).then((data) => console.log(data))
+    // const payload = {
+    //   title: "Junior Backend Developer",
+    //   type: "part_time",
+    //   deadline: "Thu Nov 30 2023 00:00:00 GMT+0600 (Bangladesh Standard Time)",
+    //   min_salary: "15000",
+    //   max_salary: "20000",
+    //   banner: "",
+    //   description: "",
+    //   company: {
+    //     name: "Repliq Limited",
+    //     logo: "",
+    //   },
+    //   created_by: {
+    //     name: user.displayName,
+    //     email: user.email,
+    //   },
+    // };
 
+    client.post("/job", payload).then(() => {
+      toast.success("Job posted successfully");
+      form.reset();
+    });
   };
-
 
   return (
     <div>
@@ -52,183 +76,253 @@ const AddJobs = () => {
           Explore diverse job opportunities in one place, tailored for every
           skill set and career level.
         </Typography>
-        <form
-          onSubmit={handleSubmit}
-          action=""
-          className="container flex flex-col mx-auto mt-4 space-y-12"
-        >
-          <div className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-xl">
-            <div className="grid grid-cols-6 gap-4 w-full mx-auto col-span-full ">
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
-                  Your Name
-                </Typography>
-                <Input
-                  size="lg"
-                  name="name"
-                  placeholder="name"
-                  color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                />
-              </div>
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
-                  Job Title
-                </Typography>
-                <Input
-                  size="lg"
-                  name="title"
-                  placeholder="Ex- Jr.Web Developer"
-                  color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                />
-              </div>
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
-                  Job Banner URL
-                </Typography>
-                <Input
-                  required
-                  size="lg"
-                  name="image"
-                  type="text"
-                  placeholder="https://"
-                  color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                />
-              </div>
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
+        <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-4">
+          <div>
+            <Typography
+              variant="paragraph"
+              color="blue-gray"
+              className="mb-4 font-medium"
+            >
+              Job Poster Details
+            </Typography>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 font-medium"
+            >
+              Your Name
+            </Typography>
+            <Input
+              type="text"
+              name="name"
+              readOnly
+              disabled
+              defaultValue={user.displayName}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 mt-2 font-medium"
+            >
+              Email address
+            </Typography>
+            <Input
+              color="teal"
+              type="email"
+              name="email"
+              disabled
+              readOnly
+              defaultValue={user.email}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
+
+          <div className="my-6">
+            <Typography
+              variant="paragraph"
+              color="blue-gray"
+              className="mb-4 font-medium"
+            >
+              New Job Information
+            </Typography>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 font-medium"
+            >
+              Job Title
+            </Typography>
+            <Input
+              color="teal"
+              type="text"
+              name="title"
+              // required
+              label="Title of the job"
+            />
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 mt-4 font-medium"
+            >
+              Job Banner URL
+            </Typography>
+            <Input
+              color="teal"
+              type="text"
+              name="banner"
+              label="Photo URL of the banner"
+            />
+
+            <div className="flex flex-col lg:flex-row gap-4 mx-auto ">
+              <div className="mx-auto w-full">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="mb-2 mt-4 font-medium"
+                >
                   Job Category
                 </Typography>
-                <select
-                  required
-                  name="category"
-                  className=" border-teal-700 bottom-2 focus:border-t-teal-500"
+                <Select
+                  // required
+                  name="type"
+                  color="teal"
+                  variant="outlined"
+                  label="Select type of the Job"
+                  onChange={(value) => setJobType(value)}
                 >
-                  <option value={""} disabled selected>
-                    Select a Category
-                  </option>
-                  <option value={"remote"}>Remote</option>
-                  <option value={"hybrid"}>Hybrid</option>
-                  <option value={"part_time"}>Part Time</option>
-                  <option value={"full_time"}>Full Time</option>
-                </select>
+                  <Option value="onsite">On Site</Option>
+                  <Option value="remote">Remote Job</Option>
+                  <Option value="hybrid">Hybrid</Option>
+                  <Option value="part_time">Part Time</Option>
+                </Select>
               </div>
 
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
+              <div className="mx-auto w-full">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="mb-2 mt-4 font-medium"
+                >
                   Minimum Salary
                 </Typography>
                 <Input
-                  size="lg"
-                  name="min_salary"
-                  placeholder="$"
                   color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  type="text"
+                  name="min_salary"
+                  label="Min salary amount"
+                  // required
                 />
               </div>
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
+
+              <div className="mx-auto w-full">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="mb-2 mt-4 font-medium"
+                >
                   Maximum Salary
                 </Typography>
                 <Input
-                  size="lg"
+                  color="teal"
+                  type="text"
                   name="max_salary"
-                  placeholder="$"
-                  color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  label="Max salary amount"
+                  // required
                 />
               </div>
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
-                  Posting Date
+              <div className="w-full">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="mb-2 mt-4 font-medium"
+                >
+                  Deadline Date
                 </Typography>
-                <Input
-                  size="lg"
-                  name="date"
-                  placeholder="name"
-                  color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                />
-                {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-              </div>
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
-                  Application Deadline
-                </Typography>
-                <Input
-                  size="lg"
+                <DatePicker
+                  // required
                   name="deadline"
-                  placeholder="deadline"
-                  color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  className="border rounded-lg !border-blue-gray-200 focus:!border-t-gray-900 h-10 w-full focus:outline-teal-500"
+                  showIcon
+                  placeholderText="Select Deadline Date"
+                  selected={deadline}
+                  onChange={(date) => setDeadline(date)}
+                  icon={
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 48 48"
+                    >
+                      <mask id="ipSApplication0">
+                        <g
+                          fill="none"
+                          stroke="#fff"
+                          strokeLinejoin="round"
+                          strokeWidth="4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            d="M40.04 22v20h-32V22"
+                          ></path>
+                          <path
+                            fill="#fff"
+                            d="M5.842 13.777C4.312 17.737 7.263 22 11.51 22c3.314 0 6.019-2.686 6.019-6a6 6 0 0 0 6 6h1.018a6 6 0 0 0 6-6c0 3.314 2.706 6 6.02 6c4.248 0 7.201-4.265 5.67-8.228L39.234 6H8.845l-3.003 7.777Z"
+                          ></path>
+                        </g>
+                      </mask>
+                      <path
+                        fill="currentColor"
+                        d="M0 0h48v48H0z"
+                        mask="url(#ipSApplication0)"
+                      ></path>
+                    </svg>
+                  }
                 />
               </div>
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
+            </div>
+
+            <div className="w-full flex flex-col justify-center lg:flex-row gap-4 my-auto ">
+              <div className="w-full">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="mb-2 mt-4 font-medium"
+                >
                   Company Name
                 </Typography>
                 <Input
-                  size="lg"
-                  name="company_name"
-                  placeholder="companyName"
                   color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  type="text"
+                  name="company_name"
+                  label="Your company name"
+                  // required
                 />
               </div>
-              <div className="col-span-full sm:col-span-3">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
+              <div className="w-full">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="mb-2 mt-4 font-medium"
+                >
                   Company Logo
                 </Typography>
                 <Input
-                  required
-                  size="lg"
-                  name="logo"
-                  type="text"
-                  placeholder="https://"
                   color="teal"
-                  className=" !border-teal-200 focus:!border-t-teal-500"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  type="text"
+                  name="company_logo"
+                  label="Your company logo"
                 />
               </div>
-              <div className="col-span-full">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
-                  Job Description
+            </div>
+
+            <div className="flex flex-col-reverse lg:flex-row gap-4">
+              <div className="w-full">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="mb-2 mt-4 font-medium"
+                >
+                  Description
                 </Typography>
-                <Textarea name="description" label="Describe Requirements" />
+                <Textarea
+                  name="description"
+                  variant="outlined"
+                  label="Short Description"
+                  className="w-full"
+                />
               </div>
             </div>
-            <Button type="submit" color="teal" className="w-48 mx-auto">
-              Add Job
-            </Button>
           </div>
+          <Button type="submit" color="teal">
+            Add this Job
+          </Button>
         </form>
       </section>
     </div>

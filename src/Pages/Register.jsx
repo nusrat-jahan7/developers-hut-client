@@ -1,15 +1,11 @@
-import {
-  Card,
-  Input,
-  Button,
-  Typography,
-} from "@material-tailwind/react";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import svg from "../../public/images/login.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { formatFirebaseAuthErrorMessage } from "../helpers";
 import toast from "react-hot-toast";
+import client from "../api";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -62,39 +58,35 @@ const Register = () => {
       return;
     }
 
-    // Sign up the user with Firebase authentication
     signUp(email, password)
       .then(() => {
-        // Edit the user profile after successful signup
         return editProfile({ displayName: name, photoURL: image });
       })
       .then((result) => {
-        console.log(result);
-        toast.success("Account created successfully!");
-
-        // Navigate to a different page after successful registration
-        navigate(from, { replace: true });
-
-        window.location.reload();
-
-        // Reset the form and password errors
-        setFormData({
-          name: "",
-          image: "",
-          email: "",
-          password: "",
-        });
-        setPasswordErrors({
-          length: false,
-          capital: false,
-          specialCharacter: false,
-        });
-
-        setLoading(false);
+        client
+          .post("/jwt", {
+            email: result.user.email,
+          })
+          .then(() => {
+            toast.success("Account created successfully!");
+            navigate(from, { replace: true });
+            window.location.reload();
+            setFormData({
+              name: "",
+              image: "",
+              email: "",
+              password: "",
+            });
+            setPasswordErrors({
+              length: false,
+              capital: false,
+              specialCharacter: false,
+            });
+            setLoading(false);
+          });
       })
       .catch((error) => {
         setLoading(false);
-        console.log(error);
         const errorMessage = formatFirebaseAuthErrorMessage(error);
         toast.error(errorMessage);
       });
@@ -165,22 +157,22 @@ const Register = () => {
               onChange={handleInputChange}
             />
             <ul className="list-disc list-inside space-y-2">
-                {passwordErrors.length && (
-                  <li className="text-red-500 text-xs">
-                    Password must be at least 6 characters.
-                  </li>
-                )}
-                {passwordErrors.capital && (
-                  <li className="text-red-500 text-xs">
-                    Include at least one capital letter.
-                  </li>
-                )}
-                {passwordErrors.specialCharacter && (
-                  <li className="text-red-500 text-xs">
-                    Include at least one special character.
-                  </li>
-                )}
-              </ul>
+              {passwordErrors.length && (
+                <li className="text-red-500 text-xs">
+                  Password must be at least 6 characters.
+                </li>
+              )}
+              {passwordErrors.capital && (
+                <li className="text-red-500 text-xs">
+                  Include at least one capital letter.
+                </li>
+              )}
+              {passwordErrors.specialCharacter && (
+                <li className="text-red-500 text-xs">
+                  Include at least one special character.
+                </li>
+              )}
+            </ul>
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Photo URL
             </Typography>
@@ -196,9 +188,15 @@ const Register = () => {
               value={formData.image}
               onChange={handleInputChange}
             />
-          <Button type="submit" disabled={loading} color="teal" className="mt-6" fullWidth>
-          {loading ? "Loading" : "Sign up"}
-          </Button>
+            <Button
+              type="submit"
+              disabled={loading}
+              color="teal"
+              className="mt-6"
+              fullWidth
+            >
+              {loading ? "Loading" : "Sign up"}
+            </Button>
           </form>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}

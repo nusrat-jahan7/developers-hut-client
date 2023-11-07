@@ -12,12 +12,18 @@ import { useContext, useState } from "react";
 import logo from "../../public/images/logo.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import client from "../api";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
   // const userLogin = false;
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+
+  const handleLogout = () => {
+    client.post("/logout", { email: user?.email }).then(() => {
+      logOut();
+    });
+  };
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -118,7 +124,7 @@ export default function NavBar() {
                   />
                 </div>
               </Menu>
-              <Button color="teal" onClick={() => logOut()}>
+              <Button color="teal" onClick={() => handleLogout()}>
                 Log Out
               </Button>
             </div>
@@ -146,7 +152,7 @@ export default function NavBar() {
               <MenuList>
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Menu</MenuItem>
-                <Button color="teal" onClick={() => logOut()}>
+                <Button color="teal" onClick={() => handleLogout()}>
                   Log Out
                 </Button>
               </MenuList>

@@ -7,6 +7,7 @@ import { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../context/AuthProvider";
 import { formatFirebaseAuthErrorMessage } from "../helpers";
+import client from "../api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,11 +25,16 @@ const Login = () => {
 
     signIn(email, password)
       .then((result) => {
-        console.log(result.user);
-        toast.success("Login successfully!");
-        setTimeout(() => {
-          navigate(from, { replace: true });
-        }, 1500);
+        client
+          .post("/jwt", {
+            email: result.user.email,
+          })
+          .then(() => {
+            toast.success("Login successfully!");
+            setTimeout(() => {
+              navigate(from, { replace: true });
+            }, 1500);
+          });
       })
       .catch((error) => {
         const errorMessage = formatFirebaseAuthErrorMessage(error);
@@ -41,11 +47,16 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result.user);
-        toast.success("Login successfully!");
-        setTimeout(() => {
-          navigate(from, { replace: true });
-        }, 1500);
+        client
+          .post("/jwt", {
+            email: result.user.email,
+          })
+          .then(() => {
+            toast.success("Login successfully!");
+            setTimeout(() => {
+              navigate(from, { replace: true });
+            }, 1500);
+          });
       })
       .catch((error) => {
         const errorMessage = formatFirebaseAuthErrorMessage(error);

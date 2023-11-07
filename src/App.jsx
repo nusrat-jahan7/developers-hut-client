@@ -7,10 +7,10 @@ function App() {
   return (
     <>
       <NavBar />
-      <div className="max-w-7xl mx-auto px-5">
+      <div className="max-w-7xl mx-auto px-5 min-h-screen">
         <Outlet />
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

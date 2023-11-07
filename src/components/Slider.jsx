@@ -1,11 +1,11 @@
 import { Carousel, Typography, Button, Input } from "@material-tailwind/react";
-import banner1 from "../../public/images/banner-1.jpg"
-import banner2 from "../../public/images/banner-2.jpg"
-import banner3 from "../../public/images/banner-3.jpg"
+import banner1 from "../../public/images/banner-1.jpg";
+import banner2 from "../../public/images/banner-2.jpg";
+import banner3 from "../../public/images/banner-3.jpg";
 
 const Slider = () => {
   return (
-    <Carousel >
+    <Carousel>
       <div className="relative lg:h-[550px] h-96 w-full">
         <img
           src={banner1}
@@ -26,10 +26,13 @@ const Slider = () => {
               color="white"
               className="lg:mb-8 mb-4 text-sm lg:text-lg opacity-80"
             >
-              We provides a wide range of web developers job listings, career resources, and tools to match candidates with suitable employment opportunities, streamlining the hiring process for both employers and job seekers.
+              We provides a wide range of web developers job listings, career
+              resources, and tools to match candidates with suitable employment
+              opportunities, streamlining the hiring process for both employers
+              and job seekers.
             </Typography>
             <div className="flex justify-center gap-2">
-            <Input color="teal" className="text-white" label="Search a job" />
+              <Input color="teal" className="text-white" label="Search a job" />
               <Button size="sm" className="bg-teal-700 text-white">
                 Search
               </Button>
@@ -57,10 +60,13 @@ const Slider = () => {
               color="white"
               className="lg:mb-8 mb-4 text-sm lg:text-lg opacity-80"
             >
-              We provides a wide range of web developers job listings, career resources, and tools to match candidates with suitable employment opportunities, streamlining the hiring process for both employers and job seekers.
+              We provides a wide range of web developers job listings, career
+              resources, and tools to match candidates with suitable employment
+              opportunities, streamlining the hiring process for both employers
+              and job seekers.
             </Typography>
             <div className="flex justify-center gap-2">
-            <Input color="teal" className="text-white" label="Search a job" />
+              <Input color="teal" className="text-white" label="Search a job" />
               <Button size="sm" className="bg-teal-700 text-white">
                 Search
               </Button>
@@ -88,10 +94,13 @@ const Slider = () => {
               color="white"
               className="lg:mb-8 mb-4 text-sm lg:text-lg opacity-80"
             >
-              We provides a wide range of web developers job listings, career resources, and tools to match candidates with suitable employment opportunities, streamlining the hiring process for both employers and job seekers.
+              We provides a wide range of web developers job listings, career
+              resources, and tools to match candidates with suitable employment
+              opportunities, streamlining the hiring process for both employers
+              and job seekers.
             </Typography>
             <div className="flex justify-center gap-2">
-            <Input color="teal" className="text-white" label="Search a job" />
+              <Input color="teal" className="text-white" label="Search a job" />
               <Button size="sm" className="bg-teal-700 text-white">
                 Search
               </Button>
