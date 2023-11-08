@@ -42,24 +42,6 @@ const AddJobs = () => {
       },
     };
 
-    // const payload = {
-    //   title: "Junior Backend Developer",
-    //   type: "part_time",
-    //   deadline: "Thu Nov 30 2023 00:00:00 GMT+0600 (Bangladesh Standard Time)",
-    //   min_salary: "15000",
-    //   max_salary: "20000",
-    //   banner: "",
-    //   description: "",
-    //   company: {
-    //     name: "Repliq Limited",
-    //     logo: "",
-    //   },
-    //   created_by: {
-    //     name: user.displayName,
-    //     email: user.email,
-    //   },
-    // };
-
     client.post("/job", payload).then(() => {
       toast.success("Job posted successfully");
       form.reset();
@@ -143,7 +125,7 @@ const AddJobs = () => {
               color="teal"
               type="text"
               name="title"
-              // required
+              required
               label="Title of the job"
             />
             <Typography
@@ -170,7 +152,7 @@ const AddJobs = () => {
                   Job Category
                 </Typography>
                 <Select
-                  // required
+                  required
                   name="type"
                   color="teal"
                   variant="outlined"
@@ -197,7 +179,7 @@ const AddJobs = () => {
                   type="text"
                   name="min_salary"
                   label="Min salary amount"
-                  // required
+                  required
                 />
               </div>
 
@@ -214,7 +196,7 @@ const AddJobs = () => {
                   type="text"
                   name="max_salary"
                   label="Max salary amount"
-                  // required
+                  required
                 />
               </div>
               <div className="w-full">
@@ -226,10 +208,9 @@ const AddJobs = () => {
                   Deadline Date
                 </Typography>
                 <DatePicker
-                  // required
+                  required
                   name="deadline"
-                  className="border rounded-lg !border-blue-gray-200 focus:!border-t-gray-900 h-10 w-full focus:outline-teal-500"
-                  showIcon
+                  className="border rounded-lg !border-blue-gray-200 focus:!border-t-gray-900 h-10 w-full focus:outline-teal-500  px-2"
                   placeholderText="Select Deadline Date"
                   selected={deadline}
                   onChange={(date) => setDeadline(date)}
@@ -282,7 +263,7 @@ const AddJobs = () => {
                   type="text"
                   name="company_name"
                   label="Your company name"
-                  // required
+                  required
                 />
               </div>
               <div className="w-full">

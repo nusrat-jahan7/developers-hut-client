@@ -9,11 +9,14 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { formatDateFromTimestamp } from "../utils";
+import { AuthContext } from "../context/AuthProvider";
 
 const DetailsJob = () => {
+  const { user } = useContext(AuthContext);
+
   const job = useLoaderData();
   const {
     deadline,
@@ -23,14 +26,13 @@ const DetailsJob = () => {
     min_salary,
     title,
     description,
-    banner
+    banner,
   } = job.result;
 
   const [size, setSize] = useState(null);
 
   const handleOpen = (value) => setSize(value);
 
- 
   return (
     <div>
       <div className="relative">
@@ -52,7 +54,11 @@ const DetailsJob = () => {
       </div>
       <div className="lg:flex justify-center mt-6">
         <div className="gap-5">
-          <img src={company.logo || companyLogo} className="w-2/6 h-2/6 mx-auto mt-6" alt="" />
+          <img
+            src={company.logo || companyLogo}
+            className="w-2/6 h-2/6 mx-auto mt-6"
+            alt=""
+          />
           <Typography className="lg:text-3xl text-center text-xl fonst-semibold">
             {company.name}
           </Typography>
@@ -64,9 +70,7 @@ const DetailsJob = () => {
           <Typography className="mt-6 mb-3" variant="h5">
             <li>Job Description: </li>
           </Typography>
-          <Typography>
-            {description}
-          </Typography>
+          <Typography>{description}</Typography>
           <Typography className="mt-6 mb-3" variant="h5">
             <li>Salary Range: </li>
           </Typography>
@@ -105,7 +109,9 @@ const DetailsJob = () => {
               <Input
                 size="lg"
                 name="name"
-                placeholder="name"
+                defaultValue={user.displayName}
+                readOnly
+                disabled
                 color="teal"
                 className=" !border-teal-200 focus:!border-t-teal-500"
                 labelProps={{
@@ -122,23 +128,9 @@ const DetailsJob = () => {
               <Input
                 size="lg"
                 name="email"
-                placeholder="name@mail.com"
-                className=" !border-teal-200 focus:!border-t-teal-500"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </DialogBody>
-            <DialogHeader>
-              <Typography variant="h6" color="blue-gray" className="-mb-5">
-                Expected Salary
-              </Typography>
-            </DialogHeader>
-            <DialogBody>
-              <Input
-                size="lg"
-                name="email"
-                placeholder="$"
+                defaultValue={user.email}
+                readOnly
+                disabled
                 className=" !border-teal-200 focus:!border-t-teal-500"
                 labelProps={{
                   className: "before:content-none after:content-none",

@@ -22,8 +22,8 @@ const JobsCategory = ({ setFilteredString, data: jobData, isLoading }) => {
       value: "part_time",
     },
     {
-      label: "Full Time",
-      value: "full_time",
+      label: "Onsite",
+      value: "onsite",
     },
   ];
 

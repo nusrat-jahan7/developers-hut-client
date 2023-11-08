@@ -7,6 +7,7 @@ import {
   Menu,
   MenuList,
   MenuItem,
+  MenuHandler,
 } from "@material-tailwind/react";
 import { useContext, useState } from "react";
 import logo from "../../public/images/logo.png";
@@ -111,7 +112,7 @@ export default function NavBar() {
   return (
     <Navbar className="max-w-none rounded-none">
       <div className="flex items-center justify-between  text-gray-900">
-        <img src={logo} className="w-48" alt="" />
+        <img src={logo} className="lg:w-48 w-32" alt="" />
         <div className="hidden lg:block">{navList}</div>
         <div className="hidden lg:block">
           {user?.email ? (
@@ -140,15 +141,15 @@ export default function NavBar() {
           )}
         </div>
 
-        <div className="lg:hidden">
+        <div className="lg:hidden flex items-center">
           {user?.email && (
-            <Menu placement="bottom-end">
-              <div className="w-10 rounded-full">
-                <img
-                  className="rounded-full object-cover w-10 h-10"
-                  src={user?.photoURL ?? "https://i.ibb.co/t4NG2L4/user.png"}
-                />
-              </div>
+            <Menu placement="bottom-end ">
+              <MenuHandler>
+              <img
+                className="rounded-full object-cover w-8 h-8"
+                src={user?.photoURL ?? "https://i.ibb.co/t4NG2L4/user.png"}
+              />
+              </MenuHandler>
               <MenuList>
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Menu</MenuItem>
