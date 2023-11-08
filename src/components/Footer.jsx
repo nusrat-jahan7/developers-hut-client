@@ -26,6 +26,7 @@ const Footer = () => {
       <div className="mx-auto w-full max-w-7xl px-8">
         <div className="grid grid-cols-1 justify-between items-center gap-4 md:grid-cols-2">
           <div>
+            {/* footer logo */}
           <img src={logo} alt="" />
           <div className="flex items-center text-white gap-2 lg:text-xl lg:mt-9 mt-4 lg:ml-5">
             <span><IoMdCall></IoMdCall></span>
@@ -36,6 +37,7 @@ const Footer = () => {
             <span>developerstalenthut@gmail.com</span>
           </div>
           </div>
+          {/* footer info grid */}
           <div className="grid grid-cols-3 justify-between gap-4">
             {LINKS.map(({ title, items }) => (
               <ul key={title}>
