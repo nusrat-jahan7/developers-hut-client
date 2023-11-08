@@ -35,6 +35,10 @@ export default function NavBar() {
         className="flex items-center gap-x-2 p-1 font-medium"
       >
         <Link
+          style={({ isActive }) => ({
+            color: isActive ? "teal" : "gray",
+            textDecorationLine: isActive ? "underline" : "none",
+          })}
           to="/"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
@@ -48,6 +52,10 @@ export default function NavBar() {
         className="flex items-center gap-x-2 p-1 font-medium"
       >
         <Link
+          style={({ isActive }) => ({
+            color: isActive ? "teal" : "gray",
+            textDecorationLine: isActive ? "underline" : "none",
+          })}
           to="/all-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
@@ -61,6 +69,10 @@ export default function NavBar() {
         className="flex items-center gap-x-2 p-1 font-medium"
       >
         <Link
+          style={({ isActive }) => ({
+            color: isActive ? "teal" : "gray",
+            textDecorationLine: isActive ? "underline" : "none",
+          })}
           to="/applied-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
@@ -74,6 +86,10 @@ export default function NavBar() {
         className="flex items-center gap-x-2 p-1 font-medium"
       >
         <Link
+          style={({ isActive }) => ({
+            color: isActive ? "teal" : "gray",
+            textDecorationLine: isActive ? "underline" : "none",
+          })}
           to="/add-job"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
@@ -87,6 +103,10 @@ export default function NavBar() {
         className="flex items-center gap-x-2 p-1 font-medium"
       >
         <Link
+          style={({ isActive }) => ({
+            color: isActive ? "teal" : "gray",
+            textDecorationLine: isActive ? "underline" : "none",
+          })}
           to="/my-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
@@ -100,6 +120,10 @@ export default function NavBar() {
         className="flex items-center gap-x-2 p-1 font-medium"
       >
         <Link
+          style={({ isActive }) => ({
+            color: isActive ? "teal" : "gray",
+            textDecorationLine: isActive ? "underline" : "none",
+          })}
           to="/blogs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
@@ -145,10 +169,10 @@ export default function NavBar() {
           {user?.email && (
             <Menu placement="bottom-end ">
               <MenuHandler>
-              <img
-                className="rounded-full object-cover w-8 h-8"
-                src={user?.photoURL ?? "https://i.ibb.co/t4NG2L4/user.png"}
-              />
+                <img
+                  className="rounded-full object-cover w-8 h-8"
+                  src={user?.photoURL ?? "https://i.ibb.co/t4NG2L4/user.png"}
+                />
               </MenuHandler>
               <MenuList>
                 <MenuItem>Profile</MenuItem>
