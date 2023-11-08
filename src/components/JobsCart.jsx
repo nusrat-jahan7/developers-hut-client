@@ -9,8 +9,13 @@ import {
 import { FiEdit2, FiUser } from "react-icons/fi";
 import { formatDateFromTimestamp } from "../utils";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import toast from "react-hot-toast";
+import { AuthContext } from "../context/AuthProvider";
 
 const JobsCart = ({ job }) => {
+  const { user } = useContext(AuthContext);
+
   const {
     createdAt,
     type,
@@ -23,8 +28,6 @@ const JobsCart = ({ job }) => {
     _id,
   } = job;
 
-
-  
   return (
     <Card className="my-6 shadow-xl">
       <CardBody>
@@ -76,6 +79,9 @@ const JobsCart = ({ job }) => {
         <a href="#" className="inline-block">
           <Link
             to={`/job/${_id}`}
+            onClick={() =>
+              user == null && toast("You have to login first to view details")
+            }
             size="sm"
             className="flex items-center gap-2 bg-teal-700 text-white py-2 px-3 rounded-lg"
           >

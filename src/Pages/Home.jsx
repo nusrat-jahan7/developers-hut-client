@@ -4,30 +4,37 @@ import { useQuery } from "@tanstack/react-query";
 import Slider from "../components/Slider";
 import client from "../api";
 import JobsCategory from "./JobsCategory";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Feature from "../components/Feature";
 import CareerAdvice from "../components/CareerAdvice";
+import useTitle from "../hooks";
 
 const Home = () => {
-  const [filteredString, setFilteredString] = useState("alljob");
+  useTitle("Home");
+  const [filteredString, setFilteredString] = useState("all-job");
 
   const fetch = () =>
-    filteredString === "alljob"
-    ? client.get("/job").then(({ data }) => data.result)
-      : client.get(`/job?type=${filteredString}`).then(({ data }) => data.result);
+    filteredString === "all-job"
+      ? client.get("/job").then(({ data }) => data.result)
+      : client
+          .get(`/job?type=${filteredString}`)
+          .then(({ data }) => data.result);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: [`job/${filteredString}`],
     queryFn: () => fetch(),
   });
 
-
   return (
     <div>
       <Slider />
-      <JobsCategory setFilteredString={setFilteredString} data={data} isLoading={isLoading} />
-      <Feature/>
-      <CareerAdvice/>
+      <JobsCategory
+        setFilteredString={setFilteredString}
+        data={data}
+        isLoading={isLoading}
+      />
+      <Feature />
+      <CareerAdvice />
     </div>
   );
 };

@@ -14,8 +14,10 @@ import toast from "react-hot-toast";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import { AuthContext } from "../context/AuthProvider";
+import useTitle from "../hooks";
 
 const AddJobs = () => {
+  useTitle("Add Job");
   const [deadline, setDeadline] = useState("");
   const [jobType, setJobType] = useState("");
   const { user } = useContext(AuthContext);

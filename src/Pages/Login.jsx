@@ -8,8 +8,10 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../context/AuthProvider";
 import { formatFirebaseAuthErrorMessage } from "../helpers";
 import client from "../api";
+import useTitle from "../hooks";
 
 const Login = () => {
+  useTitle("Login");
   const navigate = useNavigate();
   const location = useLocation();
 

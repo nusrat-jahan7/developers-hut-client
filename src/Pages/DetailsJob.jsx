@@ -1,22 +1,20 @@
-// import { useQuery } from "@tanstack/react-query";
-// import client from "../api";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import bannerDetail from "../../public/images/details-banner-7.jpg";
 import companyLogo from "../../public/images/R_logo.svg.png";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
-import { useContext, useState } from "react";
+import { Dialog, DialogBody } from "@material-tailwind/react";
+import { useContext, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { formatDateFromTimestamp } from "../utils";
 import { AuthContext } from "../context/AuthProvider";
+import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
+import client from "../api";
+import useTitle from "../hooks";
 
 const DetailsJob = () => {
+  useTitle("Job Details");
   const { user } = useContext(AuthContext);
+  const form = useRef();
 
   const job = useLoaderData();
   const {
@@ -28,23 +26,67 @@ const DetailsJob = () => {
     title,
     description,
     banner,
-    created_by
+    created_by,
+    _id,
   } = job.result;
 
-  const [size, setSize] = useState(null);
   const today = Date.now();
   const deadlineDate = Date.parse(deadline);
   const [open, setOpen] = useState(false);
 
-  const handleOpen = (value) => {
-    setSize(value);
+  const handleOpen = () => {
     if (today > deadlineDate) {
       toast.error("Job Deadline is over");
     } else if (user.email === created_by.email) {
       toast.error("You can not apply to your own job");
     } else {
-      setOpen(!open);
+      setOpen(true);
     }
+  };
+
+  const sendEmail = () => {
+    emailjs
+      .sendForm(
+        "service_d2xalwy",
+        "template_e1ql9d9",
+        form.current,
+        "QmAn_gQzQ2tqrmAKi"
+      )
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+
+    const payload = {
+      name: user?.displayName,
+      email: user?.email,
+      resume: form.resume.value,
+    };
+
+    client
+      .patch(`/applied-job/${_id}`, payload)
+      .then(() => {
+        sendEmail();
+        form.reset();
+        toast.success(
+          "Job applied successful please check email for confirmation mail"
+        );
+
+        setOpen(false);
+      })
+      .catch((error) => {
+        if (error.response.status == 409) {
+          setOpen(false);
+          toast.error("You already applied this job");
+        }
+      });
   };
 
   return (
@@ -58,7 +100,7 @@ const DetailsJob = () => {
               color="white"
               className="hidden lg:block md:text-4xl lg:text-3xl"
             >
-              Find Your Dream Job By Exploring Job Details!
+              {title} at {company.name}
             </Typography>
           </div>
           <Typography className="lg:hidden text-2xl text-teal-700 font-bold px-4 py-2">
@@ -112,81 +154,67 @@ const DetailsJob = () => {
             Apply
           </Button>
         </div>
-        <Dialog open={size === "md"} size={size || "md"} handler={handleOpen}>
-          <div className="px-4 pt-3">
-            <DialogHeader>
-              <Typography variant="h6" color="blue-gray" className="-mb-5">
-                Your Name
-              </Typography>
-            </DialogHeader>
+        <Dialog open={open} size={"md"} handler={handleOpen}>
+          <div className="p-6">
+            <div>
+              <h2 className="text-center text-2xl font-semibold text-teal-600 ">
+                Apply for {title} at {company.name}
+              </h2>
+            </div>
             <DialogBody>
-              <Input
-                size="lg"
-                name="name"
-                defaultValue={user.displayName}
-                readOnly
-                disabled
-                color="teal"
-                className=" !border-teal-200 focus:!border-t-teal-500"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </DialogBody>
-            <DialogHeader>
-              <Typography variant="h6" color="blue-gray" className="-mb-5">
-                Your Email
-              </Typography>
-            </DialogHeader>
-            <DialogBody>
-              <Input
-                size="lg"
-                name="email"
-                defaultValue={user.email}
-                readOnly
-                disabled
-                className=" !border-teal-200 focus:!border-t-teal-500"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
-            </DialogBody>
-            <DialogHeader>
-              <Typography variant="h6" color="blue-gray" className="-mb-5">
-                Resume Link
-              </Typography>
-            </DialogHeader>
-            <DialogBody>
-              <Input
-                type="text"
-                size="lg"
-                name="image"
-                placeholder="https//yourimagelink.com/"
-                className=" !border-teal-200 focus:!border-t-teal-500"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
+              <form onSubmit={handleSubmit} ref={form} className="space-y-4">
+                <div>
+                  <Typography variant="h6" color="blue-gray">
+                    Your Name
+                  </Typography>
+                  <Input
+                    size="lg"
+                    name="name"
+                    defaultValue={user.displayName}
+                    readOnly
+                    disabled
+                    color="teal"
+                    className=" !border-teal-200 focus:!border-t-teal-500"
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                  />
+                </div>
+                <div>
+                  <Typography variant="h6" color="blue-gray">
+                    Your Email
+                  </Typography>
+                  <Input
+                    size="lg"
+                    name="email"
+                    defaultValue={user.email}
+                    readOnly
+                    disabled
+                    className=" !border-teal-200 focus:!border-t-teal-500"
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                  />
+                </div>
+                <div>
+                  <Typography variant="h6" color="blue-gray">
+                    Resume Link
+                  </Typography>
+                  <Input
+                    type="text"
+                    size="lg"
+                    name="resume"
+                    required
+                    label="https//your-resume-link.com/"
+                    color="teal"
+                  />
+                </div>
+                <Button className="w-full" type="submit" color="teal">
+                  Apply Now
+                </Button>
+              </form>
             </DialogBody>
           </div>
-          <DialogFooter>
-            <Button
-              variant="text"
-              color="teal"
-              onClick={() => handleOpen(null)}
-              className="mr-1 lowercase first-letter:capitalize text-lg"
-            >
-              <span>Cancel</span>
-            </Button>
-            <Button
-              variant="gradient"
-              color="teal"
-              className="mr-5 lowercase first-letter:capitalize text-lg"
-              onClick={() => handleOpen(null)}
-            >
-              <span>Submit</span>
-            </Button>
-          </DialogFooter>
         </Dialog>
       </div>
     </div>

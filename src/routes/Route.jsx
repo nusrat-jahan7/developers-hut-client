@@ -15,46 +15,64 @@ import ErrorPage from "../pages/ErrorPage";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
-    errorElement: <ErrorPage/>,
+    element: <App />,
+    errorElement: <ErrorPage />,
     children: [
-        {
-            path: "/",
-            element: <Home/>,
-        },
-        {
-            path: "/all-jobs",
-            element: <AllJobs/>
-        },
-        {
-            path: "/job/:id",
-            element: <PrivateRoute> <DetailsJob/> </PrivateRoute> ,
-            loader: ({params}) => fetch(`http://localhost:8000/job/${params.id}`)
-        },
-        {
-            path: "/applied-jobs",
-            element: <PrivateRoute><AppliedJobs/></PrivateRoute> 
-        },
-        {
-            path: "/add-job",
-            element: <PrivateRoute><AddJobs/></PrivateRoute> 
-        },
-        {
-            path: "/my-jobs",
-            element: <PrivateRoute><MyJobs/></PrivateRoute> 
-        },
-        {
-            path: "/blogs",
-            element: <Blogs/>
-        },
-        {
-            path: "/login",
-            element: <Login/>
-        },
-        {
-            path: "/register",
-            element: <Register/>
-        },
-    ]
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/all-jobs",
+        element: <AllJobs />,
+      },
+      {
+        path: "/job/:id",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <DetailsJob />{" "}
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`https://talent-hut.vercel.app/job/${params.id}`),
+      },
+      {
+        path: "/applied-jobs",
+        element: (
+          <PrivateRoute>
+            <AppliedJobs />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/add-job",
+        element: (
+          <PrivateRoute>
+            <AddJobs />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-jobs",
+        element: (
+          <PrivateRoute>
+            <MyJobs />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/blogs",
+        element: <Blogs />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+    ],
   },
 ]);

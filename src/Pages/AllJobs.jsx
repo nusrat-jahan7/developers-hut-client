@@ -10,6 +10,7 @@ import client from "../api";
 import { formatDateFromTimestamp } from "../utils";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import useTitle from "../hooks";
 
 const TABLE_HEAD = [
   "Hiring",
@@ -21,6 +22,7 @@ const TABLE_HEAD = [
 ];
 
 const AllJobs = () => {
+  useTitle("All Job");
   const [searchField, setSearchField] = useState("");
 
   const fetch = () =>

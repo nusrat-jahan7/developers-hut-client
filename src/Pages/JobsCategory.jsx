@@ -7,7 +7,7 @@ const JobsCategory = ({ setFilteredString, data: jobData, isLoading }) => {
   const data = [
     {
       label: "All",
-      value: "alljob",
+      value: "all-job",
     },
     {
       label: "Remote",
@@ -38,8 +38,8 @@ const JobsCategory = ({ setFilteredString, data: jobData, isLoading }) => {
           the sections below to learn more about the different job categories.
         </Typography>
       </div>
-      <Tabs id="custom-animation" value="alljob">
-        <TabsHeader>
+      <Tabs id="custom-animation" value="all-job">
+        <TabsHeader className="flex-wrap sm:flex-nowrap">
           {data.map(({ label, value }) => (
             <Tab
               key={value}
@@ -53,7 +53,7 @@ const JobsCategory = ({ setFilteredString, data: jobData, isLoading }) => {
         </TabsHeader>
       </Tabs>
 
-{/* loader */}
+      {/* loader */}
       {isLoading ? (
         <Loader />
       ) : (

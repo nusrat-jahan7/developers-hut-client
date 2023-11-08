@@ -5,6 +5,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import useTitle from "../hooks";
 
 const CUSTOM_ANIMATION = {
   mount: { scale: 1 },
@@ -12,6 +13,7 @@ const CUSTOM_ANIMATION = {
 };
 
 const Blogs = () => {
+  useTitle("Blog");
   const [open, setOpen] = useState(0);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
@@ -151,11 +153,11 @@ const Blogs = () => {
               (probably React Query). This hook fetches the data based on the
               provided query key and query function. queryKey is an array used
               to identify a unique query. It depends on the searchField length.
-              If there is a search query, it includes the search term in the key;
-              otherwise, it fetches all jobs. queryFn specifies the function to
-              execute when the query is triggered. In your case, it calls the
-              fetch function, which makes the API call and returns the data.
-              When the searchField state changes, the useQuery hook will
+              If there is a search query, it includes the search term in the
+              key; otherwise, it fetches all jobs. queryFn specifies the
+              function to execute when the query is triggered. In your case, it
+              calls the fetch function, which makes the API call and returns the
+              data. When the searchField state changes, the useQuery hook will
               automatically re-run, fetching new data based on the updated
               search query.
             </p>

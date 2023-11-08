@@ -17,7 +17,6 @@ import client from "../api";
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
-  // const userLogin = false;
   const { user, logOut } = useContext(AuthContext);
 
   const handleLogout = () => {
@@ -135,15 +134,23 @@ export default function NavBar() {
         <div className="hidden lg:block">
           {user?.email ? (
             <div className="flex items-center gap-2">
-              <Menu>
-                <div className="w-10 rounded-full">
+              <div className="relative group">
+                <div className="w-10 rounded-full cursor-pointer">
                   <img
                     className="rounded-full object-cover w-10 h-10"
                     src={user?.photoURL ?? "https://i.ibb.co/t4NG2L4/user.png"}
                   />
                 </div>
-              </Menu>
-              <Button color="teal" onClick={() => handleLogout()}>
+                <div className="hidden z-50 group-hover:block rounded-md absolute right-[-1rem] min-w-[200px] bg-white drop-shadow-lg">
+                  <p className="px-5 py-3 border-b font-medium text-md rounded-t-md cursor-default hover:bg-[#F5F5F5]">
+                    {user?.displayName}
+                  </p>
+                  <p className="px-5 py-3 border-b font-medium text-md rounded-t-md cursor-default hover:bg-[#F5F5F5]">
+                    Profile
+                  </p>
+                </div>
+              </div>
+              <Button color="red" onClick={() => handleLogout()}>
                 Log Out
               </Button>
             </div>
@@ -159,7 +166,7 @@ export default function NavBar() {
           )}
         </div>
 
-        <div className="lg:hidden flex items-center">
+        <div className="lg:hidden flex items-center gap-3">
           {user?.email && (
             <Menu placement="bottom-end ">
               <MenuHandler>
@@ -169,9 +176,14 @@ export default function NavBar() {
                 />
               </MenuHandler>
               <MenuList>
+                <MenuItem>{user?.displayName}</MenuItem>
                 <MenuItem>Profile</MenuItem>
-                <MenuItem>Menu</MenuItem>
-                <Button color="teal" onClick={() => handleLogout()}>
+                <Button
+                  size="sm"
+                  className="w-full"
+                  color="red"
+                  onClick={() => handleLogout()}
+                >
                   Log Out
                 </Button>
               </MenuList>

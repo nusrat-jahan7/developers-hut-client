@@ -23,6 +23,7 @@ import { AuthContext } from "../context/AuthProvider";
 import Loader from "../components/Loader";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import useTitle from "../hooks";
 
 const TABLE_HEAD = [
   "Hiring",
@@ -34,6 +35,7 @@ const TABLE_HEAD = [
 ];
 
 const MyJobs = () => {
+  useTitle("My Jobs");
   const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [editedData, setEditedData] = useState(null);
@@ -261,10 +263,18 @@ const MyJobs = () => {
         </>
       )}
 
-      <Dialog size="xxl" open={open} handler={handleOpen}>
-        <DialogHeader>Edit job</DialogHeader>
-        <DialogBody>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Dialog
+        size="xxl"
+        open={open}
+        handler={handleOpen}
+        className="bg-white min-h-full"
+      >
+        <DialogHeader className="bg-white">Edit job</DialogHeader>
+        <DialogBody className="bg-white">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4 bg-white"
+          >
             <div className="my-6">
               <Typography
                 variant="paragraph"

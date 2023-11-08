@@ -6,8 +6,10 @@ import { AuthContext } from "../context/AuthProvider";
 import { formatFirebaseAuthErrorMessage } from "../helpers";
 import toast from "react-hot-toast";
 import client from "../api";
+import useTitle from "../hooks";
 
 const Register = () => {
+  useTitle("Register");
   const navigate = useNavigate();
   const Location = useLocation();
   const from = Location.state?.from?.pathname || "/";
