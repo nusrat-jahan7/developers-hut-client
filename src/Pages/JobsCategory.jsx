@@ -53,6 +53,7 @@ const JobsCategory = ({ setFilteredString, data: jobData, isLoading }) => {
         </TabsHeader>
       </Tabs>
 
+{/* loader */}
       {isLoading ? (
         <Loader />
       ) : (
