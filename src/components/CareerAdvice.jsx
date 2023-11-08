@@ -10,6 +10,7 @@ const CareerAdvice = () => {
   return (
     <div>
       <div className="mt-20">
+        {/* heading section */}
         <Typography variant="h3" className="text-center text-gray-700 mt-6">
           Top Career Advice
         </Typography>
