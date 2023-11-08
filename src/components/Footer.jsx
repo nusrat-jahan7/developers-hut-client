@@ -1,5 +1,7 @@
 import { Typography } from "@material-tailwind/react";
-import logo from "../../public/images/footer-logo.png"
+import logo from "../../public/images/footer-logo.png";
+import { IoMdCall } from 'react-icons/io';
+import { HiOutlineMail } from 'react-icons/hi';
 
 const LINKS = [
   {
@@ -23,7 +25,17 @@ const Footer = () => {
     <footer className="relative w-full bg-teal-700 pt-6 mt-6">
       <div className="mx-auto w-full max-w-7xl px-8">
         <div className="grid grid-cols-1 justify-between items-center gap-4 md:grid-cols-2">
+          <div>
           <img src={logo} alt="" />
+          <div className="flex items-center text-white gap-2 lg:text-xl lg:mt-9 mt-4 lg:ml-5">
+            <span><IoMdCall></IoMdCall></span>
+            <span>+880 0177778999</span>
+          </div>
+          <div className="flex items-center text-white gap-2 lg:text-xl mt-2 lg:ml-5">
+            <span><HiOutlineMail></HiOutlineMail></span>
+            <span>developerstalenthut@gmail.com</span>
+          </div>
+          </div>
           <div className="grid grid-cols-3 justify-between gap-4">
             {LINKS.map(({ title, items }) => (
               <ul key={title}>
