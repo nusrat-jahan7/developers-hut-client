@@ -13,6 +13,7 @@ import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { formatDateFromTimestamp } from "../utils";
 import { AuthContext } from "../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const DetailsJob = () => {
   const { user } = useContext(AuthContext);
@@ -27,11 +28,24 @@ const DetailsJob = () => {
     title,
     description,
     banner,
+    created_by
   } = job.result;
 
   const [size, setSize] = useState(null);
+  const today = Date.now();
+  const deadlineDate = Date.parse(deadline);
+  const [open, setOpen] = useState(false);
 
-  const handleOpen = (value) => setSize(value);
+  const handleOpen = (value) => {
+    setSize(value);
+    if (today > deadlineDate) {
+      toast.error("Job Deadline is over");
+    } else if (user.email === created_by.email) {
+      toast.error("You can not apply to your own job");
+    } else {
+      setOpen(!open);
+    }
+  };
 
   return (
     <div>

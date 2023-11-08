@@ -3,6 +3,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Chip,
   Typography,
 } from "@material-tailwind/react";
 import { FiEdit2, FiUser } from "react-icons/fi";
@@ -10,29 +11,51 @@ import { formatDateFromTimestamp } from "../utils";
 import { Link } from "react-router-dom";
 
 const JobsCart = ({ job }) => {
-  // console.log(job);
-  const { createdAt, applicants, created_by, deadline, max_salary, min_salary, title, _id } =
-    job;
+  const {
+    createdAt,
+    type,
+    applicants,
+    created_by,
+    deadline,
+    max_salary,
+    min_salary,
+    title,
+    _id,
+  } = job;
+
+
+  
   return (
     <Card className="my-6 shadow-xl">
       <CardBody>
         <Typography variant="h4" color="blue-gray">
           {title}
         </Typography>
-        <Typography>Hiring : {created_by.name}</Typography>
-        
-          <div className="my-3">
-            <Typography className="text-xl text-gray-400">
-              $ {max_salary} - {min_salary}
-            </Typography>
-            <Typography className="text-sm text-gray-900">Salary Range</Typography>
-          </div>
-          <div>
-            <Typography className="text-xl text-gray-400">
-              {formatDateFromTimestamp(deadline)}
-            </Typography>
-            <Typography className="text-sm text-gray-900">Deadline</Typography>
-          </div>
+        <div className="flex justify-between my-2">
+          <Typography>Hiring : {created_by.name}</Typography>
+          <Chip
+            className="capitalize"
+            variant="ghost"
+            size="sm"
+            value={type?.split("_").join(" ").toLowerCase()}
+            color={type ? "teal" : "blue-gray"}
+          />
+        </div>
+
+        <div className="my-3">
+          <Typography className="text-xl text-gray-400">
+            $ {max_salary} - {min_salary}
+          </Typography>
+          <Typography className="text-sm text-gray-900">
+            Salary Range
+          </Typography>
+        </div>
+        <div>
+          <Typography className="text-xl text-gray-400">
+            {formatDateFromTimestamp(deadline)}
+          </Typography>
+          <Typography className="text-sm text-gray-900">Deadline</Typography>
+        </div>
 
         <div className="flex gap-5 mt-3">
           <Typography className="flex items-center gap-2">
@@ -43,7 +66,7 @@ const JobsCart = ({ job }) => {
           </Typography>
           <Typography className="flex items-center gap-2">
             <span>
-                <FiUser className="text-gray-900"></FiUser>
+              <FiUser className="text-gray-900"></FiUser>
             </span>
             {applicants} people
           </Typography>
@@ -51,7 +74,11 @@ const JobsCart = ({ job }) => {
       </CardBody>
       <CardFooter className="pt-0">
         <a href="#" className="inline-block">
-          <Link to={`/job/${_id}`} size="sm" className="flex items-center gap-2 bg-teal-700 text-white py-2 px-3 rounded-lg">
+          <Link
+            to={`/job/${_id}`}
+            size="sm"
+            className="flex items-center gap-2 bg-teal-700 text-white py-2 px-3 rounded-lg"
+          >
             View Details
             <svg
               xmlns="http://www.w3.org/2000/svg"

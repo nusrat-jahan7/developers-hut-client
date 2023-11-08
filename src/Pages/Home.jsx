@@ -5,6 +5,8 @@ import Slider from "../components/Slider";
 import client from "../api";
 import JobsCategory from "./JobsCategory";
 import { useEffect, useState } from "react";
+import Feature from "../components/Feature";
+import CareerAdvice from "../components/CareerAdvice";
 
 const Home = () => {
   const [filteredString, setFilteredString] = useState("alljob");
@@ -24,6 +26,8 @@ const Home = () => {
     <div>
       <Slider />
       <JobsCategory setFilteredString={setFilteredString} data={data} isLoading={isLoading} />
+      <Feature/>
+      <CareerAdvice/>
     </div>
   );
 };

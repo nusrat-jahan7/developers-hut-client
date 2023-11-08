@@ -11,7 +11,7 @@ import {
 } from "@material-tailwind/react";
 import { useContext, useState } from "react";
 import logo from "../../public/images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import client from "../api";
 
@@ -34,16 +34,15 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <Link
+        <NavLink
           style={({ isActive }) => ({
             color: isActive ? "teal" : "gray",
-            textDecorationLine: isActive ? "underline" : "none",
           })}
           to="/"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           Home
-        </Link>
+        </NavLink>
       </Typography>
       <Typography
         as="li"
@@ -51,16 +50,15 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <Link
+        <NavLink
           style={({ isActive }) => ({
             color: isActive ? "teal" : "gray",
-            textDecorationLine: isActive ? "underline" : "none",
           })}
           to="/all-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           All jobs
-        </Link>
+        </NavLink>
       </Typography>
       <Typography
         as="li"
@@ -68,16 +66,15 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <Link
+        <NavLink
           style={({ isActive }) => ({
             color: isActive ? "teal" : "gray",
-            textDecorationLine: isActive ? "underline" : "none",
           })}
           to="/applied-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           Applied jobs
-        </Link>
+        </NavLink>
       </Typography>
       <Typography
         as="li"
@@ -85,16 +82,15 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <Link
+        <NavLink
           style={({ isActive }) => ({
             color: isActive ? "teal" : "gray",
-            textDecorationLine: isActive ? "underline" : "none",
           })}
           to="/add-job"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           Add a job
-        </Link>
+        </NavLink>
       </Typography>
       <Typography
         as="li"
@@ -102,16 +98,15 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <Link
+        <NavLink
           style={({ isActive }) => ({
             color: isActive ? "teal" : "gray",
-            textDecorationLine: isActive ? "underline" : "none",
           })}
           to="/my-jobs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           My jobs
-        </Link>
+        </NavLink>
       </Typography>
       <Typography
         as="li"
@@ -119,16 +114,15 @@ export default function NavBar() {
         color="gray"
         className="flex items-center gap-x-2 p-1 font-medium"
       >
-        <Link
+        <NavLink
           style={({ isActive }) => ({
             color: isActive ? "teal" : "gray",
-            textDecorationLine: isActive ? "underline" : "none",
           })}
           to="/blogs"
           className="font-medium flex items-center text-lg justify-center hover:text-teal-600"
         >
           Blogs
-        </Link>
+        </NavLink>
       </Typography>
     </ul>
   );

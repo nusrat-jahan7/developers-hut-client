@@ -37,7 +37,7 @@ const MyJobs = () => {
   const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [editedData, setEditedData] = useState(null);
-  const [deadline, setDeadline] = useState(editedData.deadline);
+  const [deadline, setDeadline] = useState("");
   const [jobType, setJobType] = useState("");
   console.log(editedData);
 
@@ -85,7 +85,7 @@ const MyJobs = () => {
     const payload = {
       title: form.title.value,
       type: jobType === "" ? editedData.type : jobType,
-      deadline: deadline,
+      deadline: deadline === "" ? editedData.deadline : deadline,
       min_salary: form.min_salary.value,
       max_salary: form.max_salary.value,
       banner: form.banner.value,
@@ -375,7 +375,9 @@ const MyJobs = () => {
                     className="border rounded-lg !border-blue-gray-200 focus:!border-t-gray-900 h-10 w-full focus:outline-teal-500  px-2"
                     placeholderText="Select Deadline Date"
                     selected={
-                      new Date(deadline)
+                      deadline === ""
+                        ? new Date(editedData?.deadline)
+                        : deadline
                     }
                     onChange={(date) => setDeadline(date)}
                     icon={

@@ -59,31 +59,29 @@ const Register = () => {
     }
 
     signUp(email, password)
-      .then(() => {
-        return editProfile({ displayName: name, photoURL: image });
-      })
       .then((result) => {
-        client
-          .post("/jwt", {
-            email: result.user.email,
-          })
-          .then(() => {
-            toast.success("Account created successfully!");
-            navigate(from, { replace: true });
-            window.location.reload();
-            setFormData({
-              name: "",
-              image: "",
-              email: "",
-              password: "",
-            });
-            setPasswordErrors({
-              length: false,
-              capital: false,
-              specialCharacter: false,
-            });
-            setLoading(false);
+        client.post("/jwt", {
+          email: result.user.email,
+        });
+      })
+      .then(() => {
+        editProfile({ displayName: name, photoURL: image }).then(() => {
+          toast.success("Account created successfully!");
+          navigate(from, { replace: true });
+          window.location.reload();
+          setFormData({
+            name: "",
+            image: "",
+            email: "",
+            password: "",
           });
+          setPasswordErrors({
+            length: false,
+            capital: false,
+            specialCharacter: false,
+          });
+          setLoading(false);
+        });
       })
       .catch((error) => {
         setLoading(false);
