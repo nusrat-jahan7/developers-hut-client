@@ -45,7 +45,7 @@ const AllJobs = () => {
           Explore diverse job opportunities in one place, tailored for every
           skill set and career level.
         </Typography>
-        <div className="flex justify-center gap-2 w-3/5 my-4 mx-auto">
+        <div className="flex justify-center gap-2  my-4 ml-auto">
           <Input
             type="text"
             onChange={(e) => setSearchField(e.target.value)}
@@ -57,8 +57,8 @@ const AllJobs = () => {
         </div>
       </div>
       <Card className="h-full w-full border-2 mb-6">
-        <CardBody className="">
-          <table className="w-full table-auto text-left">
+        <CardBody className="overflow-x-scroll lg:overflow-x-hidden">
+          <table className="w-full min-w-max table-auto text-left ">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head, index) => (

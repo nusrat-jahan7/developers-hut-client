@@ -133,7 +133,7 @@ const MyJobs = () => {
             </Typography>
           </div>
           <Card className="h-full w-full border-2 mb-6">
-            <CardBody className="">
+            <CardBody className="overflow-x-scroll lg:overflow-x-hidden">
               <table className="w-full table-auto text-left">
                 <thead>
                   <tr>

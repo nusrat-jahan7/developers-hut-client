@@ -235,6 +235,7 @@ export default function NavBar() {
           {navList}
 
           {!user?.email && (
+            <Link to="/login">
             <Button
               fullWidth
               color="teal"
@@ -242,8 +243,9 @@ export default function NavBar() {
               size="sm"
               className=""
             >
-              <span>Sign in</span>
+              Sign in
             </Button>
+            </Link>
           )}
         </div>
       </MobileNav>

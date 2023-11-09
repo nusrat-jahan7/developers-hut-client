@@ -67,7 +67,7 @@ const AppliedJobs = () => {
             Explore diverse job opportunities in one place, tailored for every
             skill set and career level.
           </Typography>
-          <div className="flex justify-center w-full my-4 mx-auto gap-4">
+          <div className="flex flex-col sm:flex-row gap-y-4 sm:gap-y-0 justify-center w-full my-4 mx-auto gap-4">
             <div className="lg:w-2/3">
               <Input
                 type="text"
@@ -96,7 +96,7 @@ const AppliedJobs = () => {
           <Loader />
         ) : (
           <Card className="h-full w-full border-2 mb-6">
-            <CardBody className="">
+            <CardBody className="overflow-x-scroll lg:overflow-x-hidden">
               <table className="w-full table-auto text-left">
                 <thead>
                   <tr>
