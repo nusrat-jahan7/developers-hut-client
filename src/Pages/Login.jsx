@@ -67,8 +67,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-between items-center max-w-6xl mx-auto">
-      <div>
+    <div className="lg:flex justify-between items-center max-w-6xl mx-auto">
+      <div className="hidden lg:block">
         <img src={svg} alt="" />
       </div>
       <Card className="mt-6 shadow-xl p-8" color="transparent" shadow={false}>
@@ -78,7 +78,7 @@ const Login = () => {
         <Typography color="gray" className="mt-1 font-normal">
           Nice to see you Again! Enter your details to Login.
         </Typography>
-        <div className="mt-6 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <div className="mt-6 mb-2 lg:w-80 max-w-screen-lg ">
           <form
             onSubmit={handleEmailLogin}
             className="mb-1 flex flex-col gap-6"

@@ -8,6 +8,7 @@ import { useState } from "react";
 import Feature from "../components/Feature";
 import CareerAdvice from "../components/CareerAdvice";
 import useTitle from "../hooks";
+import Company from "../components/Company";
 
 const Home = () => {
   useTitle("Home");
@@ -35,6 +36,7 @@ const Home = () => {
       />
       <Feature />
       <CareerAdvice />
+      <Company/>
     </div>
   );
 };

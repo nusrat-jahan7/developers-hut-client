@@ -94,7 +94,7 @@ const Register = () => {
 
   return (
     <div className="flex justify-between items-center max-w-6xl mx-auto">
-      <div>
+      <div className="hidden lg:block">
         <img src={svg} alt="" />
       </div>
       <Card className="my-6 shadow-xl p-8" color="transparent" shadow={false}>
@@ -104,7 +104,7 @@ const Register = () => {
         <Typography color="gray" className="mt-1 font-normal">
           Nice to meet you! Enter your details to register.
         </Typography>
-        <div className="mt-6 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <div className="mt-6 mb-2 lg:w-80 max-w-screen-lg sm:w-96">
           <form onSubmit={handleRegister} className="mb-1 flex flex-col gap-6">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Your Name

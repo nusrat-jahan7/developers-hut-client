@@ -2,22 +2,25 @@ import { Button, Input, Typography } from "@material-tailwind/react";
 import bannerDetail from "../../public/images/details-banner-7.jpg";
 import companyLogo from "../../public/images/R_logo.svg.png";
 import { Dialog, DialogBody } from "@material-tailwind/react";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { formatDateFromTimestamp } from "../utils";
 import { AuthContext } from "../context/AuthProvider";
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 import client from "../api";
 import useTitle from "../hooks";
 
 const DetailsJob = () => {
+
+
   useTitle("Job Details");
   const { user } = useContext(AuthContext);
-  const form = useRef();
+  // const form = useRef();
 
   const job = useLoaderData();
   const {
+    candidates,
     deadline,
     applicants,
     company,
@@ -30,6 +33,7 @@ const DetailsJob = () => {
     _id,
   } = job.result;
 
+  const verifyEmail = candidates.filter(candidate => candidate.email === user.email);
   const today = Date.now();
   const deadlineDate = Date.parse(deadline);
   const [open, setOpen] = useState(false);
@@ -39,26 +43,35 @@ const DetailsJob = () => {
       toast.error("Job Deadline is over");
     } else if (user.email === created_by.email) {
       toast.error("You can not apply to your own job");
-    } else {
+    } 
+    else if (verifyEmail.length > 0 ) {
+      toast.error('You already applied');
+  }
+    else {
       setOpen(true);
     }
   };
 
-  const sendEmail = () => {
-    emailjs
-      .sendForm(
-        "service_d2xalwy",
-        "template_e1ql9d9",
-        form.current,
-        "QmAn_gQzQ2tqrmAKi"
-      )
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const sendEmail = () => {
+  //   emailjs
+  //     .sendForm(
+  //       "service_wsq8xsd",
+  //       "template_p1nsgqs",
+  //       form.current,
+  //       "jgB57-wX8tvkN5UQ4"
+  //     )
+  //     .then(
+  //       (result) => {
+  //         toast.success(
+  //           "Email sent succesfully"
+  //         );
+  //         console.log(result.text);
+  //       },
+  //       (error) => {
+  //         console.log(error.text);
+  //       }
+  //     );
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -73,7 +86,7 @@ const DetailsJob = () => {
     client
       .patch(`/applied-job/${_id}`, payload)
       .then(() => {
-        sendEmail();
+        // sendEmail();
         form.reset();
         toast.success(
           "Job applied successful please check email for confirmation mail"
@@ -162,7 +175,7 @@ const DetailsJob = () => {
               </h2>
             </div>
             <DialogBody>
-              <form onSubmit={handleSubmit} ref={form} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <Typography variant="h6" color="blue-gray">
                     Your Name
